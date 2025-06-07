@@ -2840,8 +2840,7 @@
 
         function checkPassword() {
             if (adminPassword.value === ADMIN_PASSWORD) {
-                hidePasswordModal();
-                adminPanel.style.display = 'block';
+                window.location.href = 'admin.html';
             } else {
                 passwordError.style.display = 'block';
                 adminPassword.value = '';
