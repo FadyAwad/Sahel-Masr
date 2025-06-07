@@ -1039,11 +1039,33 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 1000;
             max-width: 300px;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .admin-panel h3 {
             margin-bottom: 15px;
             color: var(--secondary);
+            padding-right: 30px; /* Make space for close button */
+        }
+
+        .admin-panel-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #666;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+
+        .admin-panel-close:hover {
+            color: var(--accent);
+            transform: scale(1.1);
         }
 
         .admin-controls {
@@ -1052,24 +1074,43 @@
             gap: 10px;
         }
 
-        .admin-controls select,
-        .admin-controls input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+        /* Make the chalet creation form more compact */
+        .chalet-form {
+            gap: 12px;
         }
 
-        .admin-controls button {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 8px;
-            border-radius: 4px;
-            cursor: pointer;
+        .form-group {
+            gap: 4px;
         }
 
-        .admin-controls button:hover {
-            background: var(--secondary);
+        .chalet-form input,
+        .chalet-form select {
+            padding: 8px;
+            font-size: 13px;
+        }
+
+        .image-upload-container {
+            padding: 12px;
+        }
+
+        .image-preview-container {
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 6px;
+        }
+
+        .feature-tag {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-panel {
+                width: 85%;
+                max-width: 300px;
+                right: 50%;
+                transform: translateX(50%);
+                max-height: 85vh;
+            }
         }
 
         .toggle-admin {
@@ -1551,6 +1592,7 @@
 <body>
     <!-- Admin Panel -->
     <div class="admin-panel" id="adminPanel" style="display: none;">
+        <button class="admin-panel-close" id="closeAdminPanel">&times;</button>
         <h3>Admin Dashboard</h3>
         <div class="admin-options">
             <button class="admin-option-btn" id="showBookingManagement">
@@ -2575,6 +2617,7 @@
         const cancelPassword = document.getElementById('cancelPassword');
         const passwordError = document.getElementById('passwordError');
         const adminPanel = document.getElementById('adminPanel');
+        const closeAdminPanel = document.getElementById('closeAdminPanel');
 
         function showPasswordModal() {
             passwordModal.style.display = 'flex';
@@ -2587,6 +2630,11 @@
             passwordModal.style.display = 'none';
             adminPanel.style.display = 'none'; // Ensure admin panel is closed when canceling
         }
+
+        // Add close button handler
+        closeAdminPanel.addEventListener('click', () => {
+            adminPanel.style.display = 'none';
+        });
 
         function checkPassword() {
             if (adminPassword.value === ADMIN_PASSWORD) {
