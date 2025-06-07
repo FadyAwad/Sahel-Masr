@@ -1098,23 +1098,290 @@
                 left: 5%;
             }
         }
+
+        /* Admin Panel Styles */
+        .admin-panel {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .admin-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .admin-option-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: var(--accent);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .admin-option-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .admin-option-btn i {
+            font-size: 20px;
+        }
+
+        /* Chalet Creation Form Styles */
+        .chalet-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-group.half {
+            flex: 1;
+        }
+
+        .chalet-form input,
+        .chalet-form select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .chalet-form input:focus,
+        .chalet-form select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0,172,193,0.1);
+        }
+
+        .features-input {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .features-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .feature-tag {
+            background: #f0f9ff;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-tag button {
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        .image-upload-container {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .image-upload-container.dragover {
+            border-color: var(--accent);
+            background: rgba(0,172,193,0.05);
+        }
+
+        .image-upload-area {
+            cursor: pointer;
+        }
+
+        .image-upload-area i {
+            font-size: 40px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .image-preview-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .image-preview {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #ff4444;
+            font-size: 14px;
+        }
+
+        .submit-chalet-btn {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-chalet-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
     <!-- Admin Panel -->
     <div class="admin-panel" id="adminPanel" style="display: none;">
-        <h3>Booking Management</h3>
-        <div class="admin-controls">
-            <select id="adminChaletSelect">
-                <option value="">Select Chalet</option>
-            </select>
-            <input type="date" id="adminStartDate" placeholder="Start Date">
-            <input type="date" id="adminEndDate" placeholder="End Date">
-            <select id="adminStatusSelect">
-                <option value="available">Available</option>
-                <option value="booked">Booked</option>
-            </select>
-            <button id="adminUpdateBtn">Update Status</button>
+        <h3>Admin Dashboard</h3>
+        <div class="admin-options">
+            <button class="admin-option-btn" id="showBookingManagement">
+                <i class="fas fa-calendar-alt"></i>
+                Manage Bookings
+            </button>
+            <button class="admin-option-btn" id="showChaletCreation">
+                <i class="fas fa-plus-circle"></i>
+                Add New Chalet
+            </button>
+        </div>
+
+        <!-- Booking Management Section -->
+        <div class="booking-management" id="bookingManagement" style="display: none;">
+            <h4>Booking Management</h4>
+            <div class="admin-controls">
+                <select id="adminChaletSelect">
+                    <option value="">Select Chalet</option>
+                </select>
+                <input type="date" id="adminStartDate" placeholder="Start Date">
+                <input type="date" id="adminEndDate" placeholder="End Date">
+                <select id="adminStatusSelect">
+                    <option value="available">Available</option>
+                    <option value="booked">Booked</option>
+                </select>
+                <button id="adminUpdateBtn">Update Status</button>
+            </div>
+        </div>
+
+        <!-- Chalet Creation Section -->
+        <div class="chalet-creation" id="chaletCreation" style="display: none;">
+            <h4>Add New Chalet</h4>
+            <form id="newChaletForm" class="chalet-form">
+                <div class="form-group">
+                    <label>Chalet Name</label>
+                    <input type="text" id="chaletName" required placeholder="e.g., C5/4 Chalet">
+                </div>
+                
+                <div class="form-group">
+                    <label>Location</label>
+                    <select id="chaletLocation" required>
+                        <option value="amwaj">Amwaj</option>
+                        <option value="marassi">Marassi</option>
+                        <option value="portomarina">Porto Marina</option>
+                        <option value="portogolf">Porto Golf</option>
+                        <option value="marseilia">Marseilia Beach 4</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label>Price per Night (EGP)</label>
+                        <input type="number" id="chaletPrice" required min="0" step="500" placeholder="e.g., 7500">
+                    </div>
+                    <div class="form-group half">
+                        <label>Max Guests</label>
+                        <input type="number" id="chaletGuests" required min="1" placeholder="e.g., 4">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label>Bedrooms</label>
+                        <input type="number" id="chaletBedrooms" required min="1" placeholder="e.g., 2">
+                    </div>
+                    <div class="form-group half">
+                        <label>Bathrooms</label>
+                        <input type="number" id="chaletBathrooms" required min="1" placeholder="e.g., 2">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Features</label>
+                    <div class="features-input">
+                        <input type="text" id="featureInput" placeholder="Add a feature and press Enter">
+                        <div id="featuresList" class="features-list"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Images</label>
+                    <div class="image-upload-container" id="imageUploadContainer">
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop images here or click to select</p>
+                            <input type="file" id="imageUpload" multiple accept="image/*" style="display: none;">
+                        </div>
+                        <div class="image-preview-container" id="imagePreviewContainer"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-chalet-btn">Add Chalet</button>
+            </form>
         </div>
     </div>
 
@@ -2089,6 +2356,141 @@
             if (e.key === 'Enter') {
                 checkPassword();
             }
+        });
+
+        // Admin Panel Management
+        document.getElementById('showBookingManagement').addEventListener('click', () => {
+            document.getElementById('bookingManagement').style.display = 'block';
+            document.getElementById('chaletCreation').style.display = 'none';
+        });
+
+        document.getElementById('showChaletCreation').addEventListener('click', () => {
+            document.getElementById('bookingManagement').style.display = 'none';
+            document.getElementById('chaletCreation').style.display = 'block';
+        });
+
+        // Features Management
+        const featureInput = document.getElementById('featureInput');
+        const featuresList = document.getElementById('featuresList');
+        let features = [];
+
+        featureInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const feature = featureInput.value.trim();
+                if (feature && !features.includes(feature)) {
+                    features.push(feature);
+                    updateFeaturesList();
+                }
+                featureInput.value = '';
+            }
+        });
+
+        function updateFeaturesList() {
+            featuresList.innerHTML = features.map(feature => `
+                <div class="feature-tag">
+                    ${feature}
+                    <button onclick="removeFeature('${feature}')">&times;</button>
+                </div>
+            `).join('');
+        }
+
+        function removeFeature(feature) {
+            features = features.filter(f => f !== feature);
+            updateFeaturesList();
+        }
+
+        // Image Upload Management
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const imageUpload = document.getElementById('imageUpload');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        let uploadedImages = [];
+
+        imageUploadArea.addEventListener('click', () => {
+            imageUpload.click();
+        });
+
+        imageUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imageUploadArea.parentElement.classList.add('dragover');
+        });
+
+        imageUploadArea.addEventListener('dragleave', () => {
+            imageUploadArea.parentElement.classList.remove('dragover');
+        });
+
+        imageUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imageUploadArea.parentElement.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        imageUpload.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imageUrl = e.target.result;
+                        uploadedImages.push({
+                            file: file,
+                            url: imageUrl
+                        });
+                        updateImagePreviews();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function updateImagePreviews() {
+            imagePreviewContainer.innerHTML = uploadedImages.map((image, index) => `
+                <div class="image-preview">
+                    <img src="${image.url}" alt="Preview">
+                    <button class="remove-image" onclick="removeImage(${index})">&times;</button>
+                </div>
+            `).join('');
+        }
+
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            updateImagePreviews();
+        }
+
+        // Form Submission
+        document.getElementById('newChaletForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const newChalet = {
+                id: chalets.length + 1,
+                name: document.getElementById('chaletName').value,
+                location: document.getElementById('chaletLocation').options[document.getElementById('chaletLocation').selectedIndex].text + ", North Coast",
+                locationFilter: document.getElementById('chaletLocation').value,
+                price: parseInt(document.getElementById('chaletPrice').value),
+                bedrooms: parseInt(document.getElementById('chaletBedrooms').value),
+                bathrooms: parseInt(document.getElementById('chaletBathrooms').value),
+                guests: parseInt(document.getElementById('chaletGuests').value),
+                features: [...features],
+                images: uploadedImages.map(img => img.url),
+                bookings: {}
+            };
+
+            chalets.push(newChalet);
+            initializeBookingData();
+            renderChalets(chalets);
+            
+            // Reset form
+            e.target.reset();
+            features = [];
+            uploadedImages = [];
+            updateFeaturesList();
+            updateImagePreviews();
+            
+            alert('Chalet added successfully!');
         });
     </script>
 </body>
