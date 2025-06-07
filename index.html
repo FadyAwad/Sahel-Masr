@@ -1587,6 +1587,208 @@
                 border-radius: 10px;
             }
         }
+
+        /* Responsive Chalet Grid Styles */
+        @media (min-width: 1200px) {
+            .chalet-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1199px) {
+            .chalet-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.25rem;
+            }
+        }
+        
+        /* Tablet and Mobile Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem 0.5rem;
+            }
+
+            .filters {
+                margin-bottom: 1rem;
+                padding: 0.75rem;
+            }
+
+            .filter-row {
+                gap: 0.5rem;
+            }
+
+            .filter-group {
+                min-width: 150px;
+            }
+
+            .chalet-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                padding: 0.5rem;
+            }
+
+            .chalet-card {
+                margin-bottom: 0;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+
+            .chalet-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+
+            .chalet-image {
+                height: 130px;
+                border-radius: 8px 8px 0 0;
+            }
+
+            .chalet-details {
+                padding: 0.75rem;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .chalet-name {
+                font-size: 0.95rem;
+                margin-bottom: 0.2rem;
+                font-weight: 600;
+            }
+
+            .chalet-location {
+                font-size: 0.8rem;
+                color: #666;
+                margin-bottom: 0.3rem;
+            }
+
+            .chalet-features {
+                gap: 0.5rem;
+                margin-bottom: 0.3rem;
+                flex-wrap: wrap;
+            }
+
+            .feature {
+                font-size: 0.75rem;
+                background: #f5f5f5;
+                padding: 0.2rem 0.4rem;
+                border-radius: 4px;
+                white-space: nowrap;
+            }
+
+            .price {
+                font-size: 1rem;
+                margin: 0.4rem 0;
+                color: var(--accent);
+            }
+
+            .view-details,
+            .whatsapp-button {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+                width: 100%;
+                text-align: center;
+                margin-top: 0.3rem;
+                border-radius: 6px;
+                min-height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 480px) {
+            .chalet-grid {
+                gap: 0.6rem;
+            }
+
+            .chalet-image {
+                height: 120px;
+            }
+
+            .chalet-details {
+                padding: 0.6rem;
+            }
+
+            .chalet-name {
+                font-size: 0.9rem;
+            }
+
+            .chalet-location {
+                font-size: 0.75rem;
+            }
+
+            .feature {
+                font-size: 0.7rem;
+                padding: 0.15rem 0.3rem;
+            }
+
+            .price {
+                font-size: 0.95rem;
+            }
+
+            .view-details,
+            .whatsapp-button {
+                padding: 0.4rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Ultra Small Devices */
+        @media (max-width: 360px) {
+            .chalet-grid {
+                gap: 0.5rem;
+            }
+
+            .chalet-image {
+                height: 110px;
+            }
+
+            .chalet-name {
+                font-size: 0.85rem;
+            }
+
+            .chalet-location {
+                font-size: 0.7rem;
+            }
+
+            .feature {
+                font-size: 0.65rem;
+            }
+
+            .price {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Landscape Mode */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .chalet-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .chalet-image {
+                height: 110px;
+            }
+        }
+
+        /* Enhanced Touch Experience */
+        @media (hover: none) {
+            .chalet-card:active {
+                transform: scale(0.98);
+            }
+
+            .view-details:active,
+            .whatsapp-button:active {
+                opacity: 0.9;
+            }
+        }
     </style>
 </head>
 <body>
