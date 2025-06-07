@@ -1284,6 +1284,268 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .admin-panel {
+                margin: 10px;
+                padding: 15px;
+                border-radius: 12px;
+                max-width: 100%;
+            }
+
+            .admin-options {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .admin-option-btn {
+                padding: 12px;
+                font-size: 15px;
+            }
+
+            .admin-option-btn i {
+                font-size: 18px;
+            }
+
+            .booking-management,
+            .chalet-creation {
+                padding: 10px 0;
+            }
+
+            .chalet-form {
+                gap: 15px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .form-group.half {
+                width: 100%;
+            }
+
+            .chalet-form input,
+            .chalet-form select {
+                padding: 12px;
+                font-size: 16px; /* Better touch target size */
+                height: 45px; /* Larger touch area */
+            }
+
+            .features-input {
+                gap: 8px;
+            }
+
+            #featureInput {
+                padding: 12px;
+                font-size: 16px;
+                height: 45px;
+            }
+
+            .features-list {
+                padding: 5px;
+            }
+
+            .feature-tag {
+                padding: 8px 15px;
+                font-size: 14px;
+                margin: 3px;
+            }
+
+            .feature-tag button {
+                padding: 5px;
+                font-size: 18px; /* Larger touch target */
+            }
+
+            .image-upload-container {
+                padding: 15px;
+                margin: 10px 0;
+            }
+
+            .image-upload-area {
+                padding: 20px 10px;
+            }
+
+            .image-upload-area i {
+                font-size: 35px;
+            }
+
+            .image-upload-area p {
+                font-size: 14px;
+                margin: 10px 0;
+            }
+
+            .image-preview-container {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 8px;
+            }
+
+            .image-preview .remove-image {
+                width: 28px;
+                height: 28px;
+                font-size: 16px;
+            }
+
+            .submit-chalet-btn {
+                padding: 15px;
+                font-size: 16px;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            /* Booking Management Mobile Styles */
+            .admin-controls {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .admin-controls select,
+            .admin-controls input {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                height: 45px;
+            }
+
+            #adminUpdateBtn {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                height: 45px;
+                margin-top: 5px;
+            }
+
+            /* Enhanced Touch Feedback */
+            .admin-option-btn:active,
+            .submit-chalet-btn:active,
+            .feature-tag button:active,
+            .image-preview .remove-image:active {
+                transform: scale(0.95);
+            }
+
+            /* Improved Scrolling */
+            .admin-panel {
+                -webkit-overflow-scrolling: touch;
+                overflow-y: auto;
+                max-height: 90vh;
+            }
+
+            /* Better Form Labels */
+            .form-group label {
+                font-size: 14px;
+                margin-bottom: 5px;
+                color: #555;
+            }
+
+            /* Enhanced Placeholder Text */
+            .chalet-form input::placeholder {
+                color: #999;
+                font-size: 14px;
+            }
+
+            /* Better Spacing for Headers */
+            .admin-panel h3 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .admin-panel h4 {
+                font-size: 18px;
+                margin: 15px 0;
+            }
+
+            /* Enhanced Mobile Shadows */
+            .admin-panel {
+                box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            }
+
+            .admin-option-btn,
+            .submit-chalet-btn {
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+
+            /* Better Mobile Animations */
+            @keyframes fadeInMobile {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .booking-management,
+            .chalet-creation {
+                animation: fadeInMobile 0.3s ease;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 380px) {
+            .admin-panel {
+                margin: 5px;
+                padding: 12px;
+            }
+
+            .admin-option-btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .image-preview-container {
+                grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+                gap: 6px;
+            }
+
+            .feature-tag {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            .admin-panel h3 {
+                font-size: 18px;
+            }
+
+            .admin-panel h4 {
+                font-size: 16px;
+            }
+        }
+
+        /* Landscape Mode */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .admin-panel {
+                max-height: 85vh;
+                overflow-y: auto;
+            }
+
+            .form-row {
+                flex-direction: row; /* Keep rows in landscape */
+            }
+
+            .image-upload-area {
+                padding: 10px;
+            }
+
+            .image-upload-area i {
+                font-size: 30px;
+            }
+
+            .image-preview-container {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            }
+        }
+
+        /* High-DPI Mobile Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .admin-panel {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            .feature-tag,
+            .admin-option-btn,
+            .submit-chalet-btn {
+                border-radius: 10px;
+            }
+        }
     </style>
 </head>
 <body>
