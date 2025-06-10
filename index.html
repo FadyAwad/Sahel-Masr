@@ -1,0 +1,3099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahel Masr</title>
+
+
+    <style>
+        /* ============= BASE STYLES ============= */
+        :root {
+            --primary: #1e88e5;
+            --secondary: #0d47a1;
+            --accent: #00acc1;
+            --light: #f7fafc;
+            --dark: #1a202c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f3f4f6;
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============= HEADER STYLES ============= */
+        header {
+            color: white;
+            padding: 1.5rem 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            background-image: url("C:/Users/a/Downloads/SAHEL/Images/Wallpaper.jpg");
+            background-size: cover;
+            background-position: center;
+            font-family: 'Segoe UI', 'Poppins', sans-serif;
+            border-radius: 30px;
+            margin: 10px;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* slightly darker for better contrast */
+            z-index: 1;
+            border-radius: 30px;
+        }
+        
+        header h1, header p {
+            position: relative;
+            z-index: 2;
+        }
+        
+        header h1 {
+            font-size: 3.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        
+        header h1 span {
+            display: inline-block;
+            margin: 0 0.25rem;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }   
+        /* Specific word colors */
+        header .egypt {
+            color: red;
+        }
+
+        header .north {
+            color: white;
+        }
+
+        header .coast {
+            color: black;
+        }
+
+        header p {
+            font-size: 1.4rem;
+            margin-bottom: 0;
+            color: #ffffff;
+            text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+        
+        /* ============= CONTAINER STYLES ============= */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            flex: 1;
+        }
+
+        /* ============= FILTER STYLES ============= */
+        .filters {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 0.25rem;
+        }
+        
+        button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+       
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #0097a7;
+        }
+
+        /* ============= CHALET GRID STYLES ============= */
+        .chalet-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .chalet-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .chalet-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .chalet-image {
+            height: 160px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .chalet-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-nav {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            display: flex;
+            gap: 0.25rem;
+        }
+        
+        .image-nav button {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+        
+        .chalet-details {
+            padding: 0.8rem;
+        }
+        
+        .chalet-name {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .chalet-location {
+            color: var(--secondary);
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .chalet-features {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            font-size: 0.8rem;
+        }
+        
+        .price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 0.3rem 0;
+        }
+        
+        .features-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.2rem;
+            margin-top: 0.3rem;
+        }
+        
+        .features-list .feature {
+            margin-right: 0.5rem;
+        }
+        
+        .view-details {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+            font-size: 0.9rem;
+        }
+        
+        .view-details:hover {
+            background-color: var(--secondary);
+        }
+        
+        .whatsapp-button {
+            background-color: #25D366; /* WhatsApp green */
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+            font-size: 0.9rem;
+        }
+        
+        .whatsapp-button:hover {
+            background-color: #128C7E; /* Darker WhatsApp green */
+        }
+
+        /* ============= EMPTY STATE STYLES ============= */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background-color: white;
+            border-radius: 0.5rem;
+        }
+
+        /* ============= FOOTER STYLES ============= */
+        footer {
+            background: linear-gradient(135deg, #1e88e5, #00acc1);
+            color: white;
+            text-align: center;
+            padding: 0.5rem 0;
+            position: relative;
+            overflow: hidden;
+            margin-top: 2rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .creator-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .creator-logo {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #00acc1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            overflow: hidden;
+        }
+        
+        .creator-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .creator-name {
+            font-size: 1.0rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        .creator-title {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%23ffffff'%3E%3C/path%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5' fill='%23ffffff'%3E%3C/path%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%23ffffff'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 1;
+            opacity: 0.6;
+            animation: wave 10s linear infinite;
+        }
+
+        /* ============= MODAL STYLES ============= */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+    
+        .modal-content {
+            background-color: white;
+            margin: 1vh auto;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: slideUp 0.4s ease;
+        }
+    
+        .modal-header {
+            padding: 2px 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+    
+        .modal-header h2 {
+            margin: 0 0 0.5px 0;
+            color: var(--secondary);
+            font-size: 1.4rem;
+            line-height: 1.1;
+        }
+    
+        .modal-header p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.1;
+        }
+    
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s;
+        }
+    
+        .close-modal:hover {
+            color: var(--accent);
+            transform: scale(1.2);
+        }
+    
+        .gallery-container {
+            background-color: #f7f9fc;
+            padding: 6px;
+        }
+    
+        .main-image-container {
+            position: relative;
+            height: 500px;
+            margin-bottom: 4px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    
+        #modal-main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+    
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #333;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+    
+        .gallery-nav:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            opacity: 1;
+        }
+    
+        .prev-btn {
+            left: 15px;
+        }
+    
+        .next-btn {
+            right: 15px;
+        }
+    
+        .image-counter {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+    
+        .thumbnails-container {
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            padding: 3px 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) #f1f1f1;
+        }
+    
+        .thumbnails-container::-webkit-scrollbar {
+            height: 6px;
+        }
+    
+        .thumbnails-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+    
+        .thumbnails-container::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+    
+        .thumbnail {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            opacity: 0.7;
+            border: 2px solid transparent;
+        }
+    
+        .thumbnail:hover {
+            opacity: 1;
+        }
+    
+        .thumbnail.active {
+            opacity: 1;
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+    
+        .modal-details {
+            padding: 6px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .chalet-info-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 1px;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .info-icon {
+            font-size: 16px;
+            color: var(--accent);
+        }
+
+        .info-text {
+            font-size: 0.85rem;
+            color: var(--dark);
+        }
+
+        .features-section {
+            margin-bottom: 2px;
+        }
+
+        .features-section h3 {
+            margin-bottom: 1px;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        #modal-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1px;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        #modal-features li {
+            background-color: #f7f9fc;
+            padding: 2px 6px;
+            border-radius: 20px;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin: 1px;
+        }
+
+        .booking-calendar {
+            background: white;
+            border-radius: 8px;
+            padding: 3px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0;
+            width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        .calendar-day + .calendar-day {
+            margin-left: -2px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            min-height: 35px;
+            max-height: 35px;
+            border: 0.5px solid #e0e0e0;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calendar-day::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .calendar-day:hover::after {
+            opacity: 1;
+        }
+
+        .calendar-day.available {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-color: #c8e6c9;
+        }
+
+        .calendar-day.booked {
+            background-color: #ffebee;
+            color: #c62828;
+            border-color: #ffcdd2;
+            cursor: not-allowed;
+        }
+
+        .calendar-day.today {
+            border: 2px solid var(--accent);
+            font-weight: bold;
+        }
+
+        .calendar-day:hover:not(.booked) {
+            transform: scale(1.05);
+            z-index: 1;
+        }
+
+        .availability-status {
+            display: flex;
+            gap: 8px;
+            margin-top: 3px;
+            justify-content: center;
+            padding: 3px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            color: #555;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-dot.available {
+            background-color: #2e7d32;
+            box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+        }
+
+        .status-dot.booked {
+            background-color: #c62828;
+            box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.2);
+        }
+
+        .book-now-btn {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 6px auto 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-decoration: none;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .book-now-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        }
+
+        @media (max-width: 768px) {
+            .booking-calendar {
+                max-width: 100%;
+                padding: 6px;
+            }
+
+            .calendar-day {
+                font-size: 0.7rem;
+                min-height: 30px;
+                max-height: 30px;
+                border-radius: 3px;
+            }
+
+            .main-image-container {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-image-container {
+                height: 280px;
+            }
+        }
+
+        /* ============= ANIMATIONS ============= */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes wave {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-50%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.7), 0 0 30px rgba(255, 255, 255, 0.5);
+            }
+        }
+    
+        .image-fade {
+            animation: fadeImage 0.4s ease;
+        }
+    
+        @keyframes fadeImage {
+            0% { opacity: 0.6; transform: scale(1.03); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* ============= RESPONSIVE STYLES ============= */
+        @media (max-width: 1024px) {
+            .chalet-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .chalet-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .creator-name {
+                font-size: 1rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 3vh auto;
+            }
+        
+            .main-image-container {
+                height: 350px;
+            }
+        
+            .chalet-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        
+            .gallery-nav {
+                width: 35px;
+                height: 35px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .chalet-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .chalet-image {
+                height: 150px;
+            }
+            
+            .chalet-details {
+                padding: 0.75rem;
+            }
+            
+            .chalet-name {
+                font-size: 1rem;
+            }
+            
+            .price {
+                font-size: 1rem;
+            }
+            
+            .modal-content {
+                margin: 2vh auto;
+            }
+        
+            .main-image-container {
+                height: 280px;
+            }
+        
+            .modal-header {
+                padding: 15px;
+            }
+        
+            .modal-details {
+                padding: 15px;
+            }
+        
+            .chalet-info-grid {
+                gap: 10px;
+            }
+        
+            .thumbnail {
+                width: 60px;
+                height: 45px;
+            }
+        }
+
+        /* ============= BOOKING SYSTEM STYLES ============= */
+        .booking-calendar {
+            background: white;
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .calendar-nav {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+
+        .availability-status {
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+            justify-content: center;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 0.7rem;
+        }
+
+        /* Password Modal Styles */
+        .password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .password-modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            width: 300px;
+            text-align: center;
+        }
+
+        .password-modal h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .password-input,
+        .username-input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .password-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .password-buttons button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .password-buttons .submit {
+            background: var(--accent);
+            color: white;
+        }
+
+        .password-buttons .cancel {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .password-error {
+            color: #c62828;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .modal-details {
+                grid-template-columns: 1fr;
+            }
+
+            .chalet-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .calendar-grid {
+                gap: 1px;
+            }
+
+            .calendar-day {
+                font-size: 0.65rem;
+                min-height: 20px;
+                max-height: 20px;
+            }
+        }
+
+        /* Admin Panel Styles */
+        .admin-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            max-width: 300px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .admin-panel h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+            padding-right: 30px; /* Make space for close button */
+        }
+
+        .admin-panel-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #666;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+
+        .admin-panel-close:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .admin-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Make the chalet creation form more compact */
+        .chalet-form {
+            gap: 12px;
+        }
+
+        .form-group {
+            gap: 4px;
+        }
+
+        .chalet-form input,
+        .chalet-form select {
+            padding: 8px;
+            font-size: 13px;
+        }
+
+        .image-upload-container {
+            padding: 12px;
+        }
+
+        .image-preview-container {
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 6px;
+        }
+
+        .feature-tag {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-panel {
+                width: 85%;
+                max-width: 300px;
+                right: 50%;
+                transform: translateX(50%);
+                max-height: 85vh;
+            }
+        }
+
+        .toggle-admin {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .toggle-admin:hover {
+            background: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .admin-panel {
+                width: 90%;
+                max-width: none;
+                right: 5%;
+                left: 5%;
+            }
+        }
+
+        /* Admin Panel Styles */
+        .admin-panel {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .admin-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .admin-option-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: var(--accent);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .admin-option-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .admin-option-btn i {
+            font-size: 20px;
+        }
+
+        /* Chalet Creation Form Styles */
+        .chalet-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-group.half {
+            flex: 1;
+        }
+
+        .chalet-form input,
+        .chalet-form select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .chalet-form input:focus,
+        .chalet-form select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0,172,193,0.1);
+        }
+
+        .features-input {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .features-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .feature-tag {
+            background: #f0f9ff;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-tag button {
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        .image-upload-container {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .image-upload-container.dragover {
+            border-color: var(--accent);
+            background: rgba(0,172,193,0.05);
+        }
+
+        .image-upload-area {
+            cursor: pointer;
+        }
+
+        .image-upload-area i {
+            font-size: 40px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .image-preview-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .image-preview {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #ff4444;
+            font-size: 14px;
+        }
+
+        .submit-chalet-btn {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-chalet-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .admin-panel {
+                margin: 10px;
+                padding: 15px;
+                border-radius: 12px;
+                max-width: 100%;
+            }
+
+            .admin-options {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .admin-option-btn {
+                padding: 12px;
+                font-size: 15px;
+            }
+
+            .admin-option-btn i {
+                font-size: 18px;
+            }
+
+            .booking-management,
+            .chalet-creation {
+                padding: 10px 0;
+            }
+
+            .chalet-form {
+                gap: 15px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .form-group.half {
+                width: 100%;
+            }
+
+            .chalet-form input,
+            .chalet-form select {
+                padding: 12px;
+                font-size: 16px; /* Better touch target size */
+                height: 45px; /* Larger touch area */
+            }
+
+            .features-input {
+                gap: 8px;
+            }
+
+            #featureInput {
+                padding: 12px;
+                font-size: 16px;
+                height: 45px;
+            }
+
+            .features-list {
+                padding: 5px;
+            }
+
+            .feature-tag {
+                padding: 8px 15px;
+                font-size: 14px;
+                margin: 3px;
+            }
+
+            .feature-tag button {
+                padding: 5px;
+                font-size: 18px; /* Larger touch target */
+            }
+
+            .image-upload-container {
+                padding: 15px;
+                margin: 10px 0;
+            }
+
+            .image-upload-area {
+                padding: 20px 10px;
+            }
+
+            .image-upload-area i {
+                font-size: 35px;
+            }
+
+            .image-upload-area p {
+                font-size: 14px;
+                margin: 10px 0;
+            }
+
+            .image-preview-container {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 8px;
+            }
+
+            .image-preview .remove-image {
+                width: 28px;
+                height: 28px;
+                font-size: 16px;
+            }
+
+            .submit-chalet-btn {
+                padding: 15px;
+                font-size: 16px;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            /* Booking Management Mobile Styles */
+            .admin-controls {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .admin-controls select,
+            .admin-controls input {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                height: 45px;
+            }
+
+            #adminUpdateBtn {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                height: 45px;
+                margin-top: 5px;
+            }
+
+            /* Enhanced Touch Feedback */
+            .admin-option-btn:active,
+            .submit-chalet-btn:active,
+            .feature-tag button:active,
+            .image-preview .remove-image:active {
+                transform: scale(0.95);
+            }
+
+            /* Improved Scrolling */
+            .admin-panel {
+                -webkit-overflow-scrolling: touch;
+                overflow-y: auto;
+                max-height: 90vh;
+            }
+
+            /* Better Form Labels */
+            .form-group label {
+                font-size: 14px;
+                margin-bottom: 5px;
+                color: #555;
+            }
+
+            /* Enhanced Placeholder Text */
+            .chalet-form input::placeholder {
+                color: #999;
+                font-size: 14px;
+            }
+
+            /* Better Spacing for Headers */
+            .admin-panel h3 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .admin-panel h4 {
+                font-size: 18px;
+                margin: 15px 0;
+            }
+
+            /* Enhanced Mobile Shadows */
+            .admin-panel {
+                box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            }
+
+            .admin-option-btn,
+            .submit-chalet-btn {
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+
+            /* Better Mobile Animations */
+            @keyframes fadeInMobile {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .booking-management,
+            .chalet-creation {
+                animation: fadeInMobile 0.3s ease;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 380px) {
+            .admin-panel {
+                margin: 5px;
+                padding: 12px;
+            }
+
+            .admin-option-btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .image-preview-container {
+                grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+                gap: 6px;
+            }
+
+            .feature-tag {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            .admin-panel h3 {
+                font-size: 18px;
+            }
+
+            .admin-panel h4 {
+                font-size: 16px;
+            }
+        }
+
+        /* Landscape Mode */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .admin-panel {
+                max-height: 85vh;
+                overflow-y: auto;
+            }
+
+            .form-row {
+                flex-direction: row; /* Keep rows in landscape */
+            }
+
+            .image-upload-area {
+                padding: 10px;
+            }
+
+            .image-upload-area i {
+                font-size: 30px;
+            }
+
+            .image-preview-container {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            }
+        }
+
+        /* High-DPI Mobile Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .admin-panel {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            .feature-tag,
+            .admin-option-btn,
+            .submit-chalet-btn {
+                border-radius: 10px;
+            }
+        }
+
+        /* Responsive Chalet Grid Styles */
+        @media (min-width: 1200px) {
+            .chalet-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1199px) {
+            .chalet-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.25rem;
+            }
+        }
+        
+        /* Tablet and Mobile Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem 0.5rem;
+            }
+
+            .filters {
+                margin-bottom: 1rem;
+                padding: 0.75rem;
+            }
+
+            .filter-row {
+                gap: 0.5rem;
+            }
+
+            .filter-group {
+                min-width: 150px;
+            }
+
+            .chalet-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                padding: 0.5rem;
+            }
+
+            .chalet-card {
+                margin-bottom: 0;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+
+            .chalet-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+
+            .chalet-image {
+                height: 130px;
+                border-radius: 8px 8px 0 0;
+            }
+
+            .chalet-details {
+                padding: 0.75rem;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .chalet-name {
+                font-size: 0.95rem;
+                margin-bottom: 0.2rem;
+                font-weight: 600;
+            }
+
+            .chalet-location {
+                font-size: 0.8rem;
+                color: #666;
+                margin-bottom: 0.3rem;
+            }
+
+            .chalet-features {
+                gap: 0.5rem;
+                margin-bottom: 0.3rem;
+                flex-wrap: wrap;
+            }
+
+            .feature {
+                font-size: 0.75rem;
+                background: #f5f5f5;
+                padding: 0.2rem 0.4rem;
+                border-radius: 4px;
+                white-space: nowrap;
+            }
+
+            .price {
+                font-size: 1rem;
+                margin: 0.4rem 0;
+                color: var(--accent);
+            }
+
+            .view-details,
+            .whatsapp-button {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+                width: 100%;
+                text-align: center;
+                margin-top: 0.3rem;
+                border-radius: 6px;
+                min-height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 480px) {
+            .chalet-grid {
+                gap: 0.6rem;
+            }
+
+            .chalet-image {
+                height: 120px;
+            }
+
+            .chalet-details {
+                padding: 0.6rem;
+            }
+
+            .chalet-name {
+                font-size: 0.9rem;
+            }
+
+            .chalet-location {
+                font-size: 0.75rem;
+            }
+
+            .feature {
+                font-size: 0.7rem;
+                padding: 0.15rem 0.3rem;
+            }
+
+            .price {
+                font-size: 0.95rem;
+            }
+
+            .view-details,
+            .whatsapp-button {
+                padding: 0.4rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Ultra Small Devices */
+        @media (max-width: 360px) {
+            .chalet-grid {
+                gap: 0.5rem;
+            }
+
+            .chalet-image {
+                height: 110px;
+            }
+
+            .chalet-name {
+                font-size: 0.85rem;
+            }
+
+            .chalet-location {
+                font-size: 0.7rem;
+            }
+
+            .feature {
+                font-size: 0.65rem;
+            }
+
+            .price {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Landscape Mode */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .chalet-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .chalet-image {
+                height: 110px;
+            }
+        }
+
+        /* Enhanced Touch Experience */
+        @media (hover: none) {
+            .chalet-card:active {
+                transform: scale(0.98);
+            }
+
+            .view-details:active,
+            .whatsapp-button:active {
+                opacity: 0.9;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel" style="display: none;">
+        <button class="admin-panel-close" id="closeAdminPanel">&times;</button>
+        <h3>Admin Dashboard</h3>
+        <div class="admin-options">
+            <button class="admin-option-btn" id="showBookingManagement">
+                <i class="fas fa-calendar-alt"></i>
+                Manage Bookings
+            </button>
+            <button class="admin-option-btn" id="showChaletCreation">
+                <i class="fas fa-plus-circle"></i>
+                Add New Chalet
+            </button>
+        </div>
+
+        <!-- Booking Management Section -->
+        <div class="booking-management" id="bookingManagement" style="display: none;">
+            <h4>Booking Management</h4>
+            <div class="admin-controls">
+                <select id="adminChaletSelect">
+                    <option value="">Select Chalet</option>
+                </select>
+                <input type="date" id="adminStartDate" placeholder="Start Date">
+                <input type="date" id="adminEndDate" placeholder="End Date">
+                <select id="adminStatusSelect">
+                    <option value="available">Available</option>
+                    <option value="booked">Booked</option>
+                </select>
+                <button id="adminUpdateBtn">Update Status</button>
+            </div>
+        </div>
+
+        <!-- Chalet Creation Section -->
+        <div class="chalet-creation" id="chaletCreation" style="display: none;">
+            <h4>Add New Chalet</h4>
+            <form id="newChaletForm" class="chalet-form">
+                <div class="form-group">
+                    <label>Chalet Name</label>
+                    <input type="text" id="chaletName" required placeholder="e.g., C5/4 Chalet">
+                </div>
+                
+                <div class="form-group">
+                    <label>Location</label>
+                    <select id="chaletLocation" required>
+                        <option value="amwaj">Amwaj</option>
+                        <option value="marassi">Marassi</option>
+                        <option value="portomarina">Porto Marina</option>
+                        <option value="portogolf">Porto Golf</option>
+                        <option value="marseilia">Marseilia Beach 4</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label>Price per Night (EGP)</label>
+                        <input type="number" id="chaletPrice" required min="0" step="500" placeholder="e.g., 7500">
+                    </div>
+                    <div class="form-group half">
+                        <label>Max Guests</label>
+                        <input type="number" id="chaletGuests" required min="1" placeholder="e.g., 4">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label>Bedrooms</label>
+                        <input type="number" id="chaletBedrooms" required min="1" placeholder="e.g., 2">
+                    </div>
+                    <div class="form-group half">
+                        <label>Bathrooms</label>
+                        <input type="number" id="chaletBathrooms" required min="1" placeholder="e.g., 2">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Features</label>
+                    <div class="features-input">
+                        <input type="text" id="featureInput" placeholder="Add a feature and press Enter">
+                        <div id="featuresList" class="features-list"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Images</label>
+                    <div class="image-upload-container" id="imageUploadContainer">
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop images here or click to select</p>
+                            <input type="file" id="imageUpload" multiple accept="image/*" style="display: none;">
+                        </div>
+                        <div class="image-preview-container" id="imagePreviewContainer"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-chalet-btn">Add Chalet</button>
+            </form>
+        </div>
+    </div>
+
+    <button class="toggle-admin" id="toggleAdmin">I'm Admin 🧔🏻‍♂️</button>
+
+    <!-- Modal container for chalet details -->
+    <div id="chalet-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id="modal-chalet-name"></h2>
+                <p id="modal-chalet-location"></p>
+            </div>
+        
+            <div class="gallery-container">
+                <div class="main-image-container">
+                    <img id="modal-main-image" src="" alt="Chalet Image">
+                    <button class="gallery-nav prev-btn">&lt;</button>
+                    <button class="gallery-nav next-btn">&gt;</button>
+                    <div class="image-counter"><span id="current-image">1</span>/<span id="total-images">1</span></div>
+                </div>
+            
+                <div class="thumbnails-container" id="thumbnails">
+                <!-- Thumbnails will be added dynamically -->
+                </div>
+            </div>
+        
+            <div class="modal-details">
+                <div class="chalet-info-grid">
+                    <div class="info-item">
+                        <div class="info-icon">🛏️</div>
+                        <div class="info-text">
+                            <span id="modal-bedrooms">2</span> Bedrooms
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">🚿</div>
+                        <div class="info-text">
+                            <span id="modal-bathrooms">2</span> Bathrooms
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">👥</div>
+                        <div class="info-text">
+                            Up to <span id="modal-guests">4</span> Guests
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">💰</div>
+                        <div class="info-text">
+                            <span id="modal-price">7,500</span> EGP/night
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="features-section">
+                    <h3>Chalet Features</h3>
+                    <ul id="modal-features" class="features-list">
+                     <!-- Features will be added dynamically -->
+                    </ul>
+                </div>
+
+                <div class="booking-calendar">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" id="prevMonth">&lt;</button>
+                        <h3 id="currentMonth">June 2025</h3>
+                        <button class="calendar-nav" id="nextMonth">&gt;</button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar days will be added dynamically -->
+                    </div>
+                    <div class="availability-status">
+                        <div class="status-item">
+                            <div class="status-dot available"></div>
+                            <span>Available</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-dot booked"></div>
+                            <span>Booked</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <a href="#" id="modal-whatsapp-link" class="book-now-btn" target="_blank">
+                    <span id="whatsapp-text">Book Now on WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>
+        <span class="egypt">North</span>
+        <span class="north">Coast</span>
+        <span class="coast">Egypt</span>
+        </h1>
+        <p>Discover your perfect Chalet in Sahel</p>
+    </header>
+    
+    <div class="container">
+        <div class="filters">
+            <h2>Find Your Perfect Chalet</h2>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="location">Location</label>
+                    <select id="location">
+                        <option value="all">All Locations</option>
+                        <option value="marassi">Marassi</option>
+                        <option value="amwaj">Amwaj</option>
+                        <option value="portomarina">Porto Marina</option>
+                        <option value="portogolf">Porto Golf</option>
+                        <option value="marseilia">Marseilia Beach 4</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="price">Price</label>
+                    <select id="price">
+                        <option value="all">Any Price</option>
+                        <option value="7000">Up to 7,000 EGP/night</option>
+                        <option value="10000">Up to 10,000 EGP/night</option>
+                        <option value="17000">Up to 17,000 EGP/night</option>
+                        <option value="22000">Up to 22,000 EGP/night</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="bedrooms">Bedrooms</label>
+                    <select id="bedrooms">
+                        <option value="all">Any</option>
+                        <option value="1">+1</option>
+                        <option value="2">+2</option>
+                        <option value="3">+3</option>
+                        <option value="4">+4</option>
+                    </select>
+                </div>
+            </div>
+            <button id="apply-filters">Apply Filters</button>
+        </div>
+        
+        <div class="chalet-grid" id="chalet-container">
+            <!-- Chalets will be inserted here dynamically -->
+        </div>
+    </div>
+    
+    <footer>
+        <div class="wave"></div>
+        <div class="footer-content">
+            <div class="creator-info">
+                <div class="creator-logo">
+                    <img src="C:/Users/a/Downloads/SAHEL/Images/Logo.png" alt="Logo">
+                </div>
+                <div class="creator-name">MADE BY Eng. Fady Motir</div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Add Password Modal -->
+    <div class="password-modal" id="passwordModal">
+        <div class="password-modal-content">
+            <h3>Admin Login</h3>
+            <input type="text" class="username-input" id="adminUsername" placeholder="Enter username">
+            <input type="password" class="password-input" id="adminPassword" placeholder="Enter password">
+            <div class="password-error" id="passwordError">Incorrect username or password</div>
+            <div class="password-buttons">
+                <button class="submit" id="submitPassword">Submit</button>
+                <button class="cancel" id="cancelPassword">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const WHATSAPP_MESSAGE = "Hi, I'm interested in booking a chalet. Can you provide more information?";
+        
+        // Booking system configuration
+        const BOOKING_START_MONTH = 5; // June (0-based)
+        const BOOKING_END_MONTH = 8;   // September (0-based)
+        const BOOKING_START_YEAR = 2025;
+        const BOOKING_END_YEAR = 2025;
+
+        // Chalet data with booking information
+        const chalets = [
+            {
+                id: 1,
+                name: "C5/4 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 7500,
+                bedrooms: 2,
+                bathrooms: 1,
+                guests: 4,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C54/C54-1.jpg", 
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C54/C54-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C54/C54-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C54/C54-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C54/C54-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C54/C54-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C54/C54-7.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C54/C54-8.jpg",
+                ],
+                features: ["Second row from Costa", "View Pool", "Fully Air-conditioned","First Floor"],
+                bookings: {
+                    "2025-06-01": "available",
+                    "2025-06-02": "available",
+                    "2025-06-03": "available",
+                    "2025-06-04": "available",
+                    "2025-06-05": "available"
+                }
+            },
+            {
+                id: 2,
+                name: "X703 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 7000,
+                bedrooms: 2,
+                bathrooms: 2,
+                guests: 4,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/X703/X703-1.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/X703/X703-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/X703/X703-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/X703/X703-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/X703/X703-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/X703/X703-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/X703/X703-7.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/X703/X703-8.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/X703/X703-9.jpg"
+                ],
+                features: ["Private Garden","Fully Air-conditioned", "Direct View of Pool"]
+            },
+            {
+                id: 3,
+                name: "E28/3 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 7000,
+                bedrooms: 2,
+                bathrooms: 2,
+                guests: 5,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-1.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-7.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-8.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-9.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-10.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-11.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-12.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E283/E283-13.jpg"
+                ],
+                features: ["Costa Pool View", "Fully Air-conditioned", "Very Close to The Beach", "First Floor"]
+            },
+            {
+                id: 4,
+                name: "R17/1 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 7000,
+                bedrooms: 2,
+                bathrooms: 2,
+                guests: 5,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R171/R171-1.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R171/R171-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R171/R171-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R171/R171-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R171/R171-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R171/R171-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R171/R171-7.jpg"
+                ],
+                features: ["Pool View", "Private Garden", "Fully Air-conditioned"]
+            },
+            {
+                id: 5,
+                name: "E18/4 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 7000,
+                bedrooms: 2,
+                bathrooms: 2,
+                guests: 5,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E184/E184-1.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E184/E184-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E184/E184-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E184/E184-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E184/E184-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E184/E184-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E184/E184-7.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E184/E184-8.jpg"
+                ],
+                features: ["Costa Pool View", "Fully Air-conditioned", "Very Close to The Beach", "First Floor"]
+            },
+            {
+                id: 6,
+                name: "E15/1 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 13500,
+                bedrooms: 4,
+                bathrooms: 3,
+                guests: 4,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-1.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-7.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-8.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-9.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-10.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-11.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-12.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E151/E151-13.jpg",
+                ],
+                features: ["Costa Pool View","Private Garden", "Nanny's Room with Bathroom" ]
+            },
+            {
+                id: 7,
+                name: "U422 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 7000,
+                bedrooms: 2,
+                bathrooms: 2,
+                guests: 5,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-1.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-7.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-8.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-9.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-10.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-11.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-12.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/U422/U422-13.jpg",
+                ],
+                features: ["In the U-Zone Hotel Phase","Second Floor with Elevator", "Fully Air-conditioned","Pool View","New Furniture"]
+            },
+            {
+                id: 8,
+                name: "R3/7 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 7000,
+                bedrooms: 2,
+                bathrooms: 2,
+                guests: 4,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R37/R37-1.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R37/R37-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R37/R37-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R37/R37-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R37/R37-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R37/R37-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/R37/R37-7.jpg",
+                ],
+                features: ["In The Hotel Phase","Second Floor with Roof 'Elevator Available'", "Fully Air-conditioned","Pool View","Close to The Beach"]
+            },
+            {
+                id: 9,
+                name: "N58/3 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 12000,
+                bedrooms: 3,
+                bathrooms: 2,
+                guests: 6,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/N583/N583-1.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/N583/N583-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/N583/N583-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/N583/N583-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/N583/N583-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/N583/N583-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/N583/N583-7.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/N583/N583-8.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/N583/N583-9.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/N583/N583-10.jpg",
+                ],
+                features: ["Pool View","Private Garden", "Fully Air-conditioned","New Furniture"]
+            },
+            {
+                id: 10,
+                name: "E1/1 Duplex",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 17000,
+                bedrooms: 4,
+                bathrooms: 3,
+                guests: 9,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-1.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-7.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-8.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-9.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-10.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-11.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-12.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-13.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-14.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/E11/E11-15.jpg",
+                ],
+                features: ["Second Row from Costa","Private Garden", "Fully Air-conditioned","Nanny's Room"]
+            },
+            {
+                id: 11,
+                name: "Y9/1 Villa ",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 17000,
+                bedrooms: 4,
+                bathrooms: 3,
+                guests: 10,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-1.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-7.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-8.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-9.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-10.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-11.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-12.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-13.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-14.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/Y91/Y91-15.jpg",
+                ],
+                features: ["Sea View", "Directly on The 3 Lake", "Fully Air-conditioned", "Ground Floor & Upper Floor & Roof"]
+            },
+                        {
+                id: 12,
+                name: "C4/1 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj",
+                price: 7000,
+                bedrooms: 2,
+                bathrooms: 2,
+                guests: 5,
+                images: [
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-2.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-1.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-3.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-4.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-5.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-6.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-7.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-8.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-9.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-10.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-11.jpg",
+                    "C:/Users/a/Downloads/SAHEL/Chalets/C41/C41-12.jpg",
+                ],
+                features: ["Private Garden", "Second row from Costa", "Fully Air-conditioned", "Pool View"]
+            }
+            
+        ];
+
+        // Function to save chalets to localStorage
+        function saveChaletsToStorage() {
+            try {
+                localStorage.setItem('chaletData', JSON.stringify(chalets));
+            } catch (error) {
+                console.error('Error saving chalets to localStorage:', error);
+                alert('Failed to save chalet data. The storage might be full. Try clearing some space.');
+            }
+        }
+
+        // Function to load chalets from localStorage
+        function loadChaletsFromStorage() {
+            try {
+                const savedChalets = localStorage.getItem('chaletData');
+                if (savedChalets) {
+                    const parsedChalets = JSON.parse(savedChalets);
+                    // Validate the loaded data
+                    if (Array.isArray(parsedChalets) && parsedChalets.every(isValidChalet)) {
+                        // Clear existing chalets and add saved ones
+                        chalets.length = 0;
+                        chalets.push(...parsedChalets);
+                    } else {
+                        console.error('Invalid chalet data in localStorage');
+                        localStorage.removeItem('chaletData'); // Clear invalid data
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading chalets from localStorage:', error);
+                localStorage.removeItem('chaletData'); // Clear corrupted data
+            }
+        }
+
+        // Function to validate chalet object structure
+        function isValidChalet(chalet) {
+            return (
+                chalet &&
+                typeof chalet === 'object' &&
+                typeof chalet.id === 'number' &&
+                typeof chalet.name === 'string' &&
+                typeof chalet.location === 'string' &&
+                typeof chalet.locationFilter === 'string' &&
+                typeof chalet.price === 'number' &&
+                typeof chalet.bedrooms === 'number' &&
+                typeof chalet.bathrooms === 'number' &&
+                typeof chalet.guests === 'number' &&
+                Array.isArray(chalet.features) &&
+                Array.isArray(chalet.images) &&
+                chalet.images.every(img => typeof img === 'string')
+            );
+        }
+
+        // DOM Elements
+        const chaletContainer = document.getElementById('chalet-container');
+        const locationFilter = document.getElementById('location');
+        const priceFilter = document.getElementById('price');
+        const bedroomsFilter = document.getElementById('bedrooms');
+        const applyFiltersBtn = document.getElementById('apply-filters');
+        const modal = document.getElementById('chalet-modal');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const modalChaletName = document.getElementById('modal-chalet-name');
+        const modalChaletLocation = document.getElementById('modal-chalet-location');
+        const modalMainImage = document.getElementById('modal-main-image');
+        const modalBedrooms = document.getElementById('modal-bedrooms');
+        const modalBathrooms = document.getElementById('modal-bathrooms');
+        const modalGuests = document.getElementById('modal-guests');
+        const modalPrice = document.getElementById('modal-price');
+        const modalFeatures = document.getElementById('modal-features');
+        const thumbnailsContainer = document.getElementById('thumbnails');
+        const currentImageEl = document.getElementById('current-image');
+        const totalImagesEl = document.getElementById('total-images');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const modalWhatsappLink = document.getElementById('modal-whatsapp-link');
+
+        // Global variables for gallery navigation
+        let currentImageIndex = 0;
+        let currentChaletImages = [];
+
+        // Function to create WhatsApp link with dynamic message
+        function createWhatsAppLink(chaletName) {
+            const message = encodeURIComponent(`Hi, I'm interested in booking the "${chaletName}". Can you provide more information?`);
+            return `https://wa.me/message/FZNNOPOLBDOGI1?text=${message}`;
+        }
+
+        // Function to render chalet cards
+        function renderChalets(chaletsToRender) {
+            chaletContainer.innerHTML = '';
+            
+            if (chaletsToRender.length === 0) {
+                chaletContainer.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No chalets found</h3>
+                        <p>Try adjusting your filters to see more results.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            chaletsToRender.forEach(chalet => {
+                const chaletCard = document.createElement('div');
+                chaletCard.className = 'chalet-card';
+                chaletCard.dataset.id = chalet.id;
+                
+                // Create WhatsApp link with the chalet name
+                const whatsappLink = createWhatsAppLink(chalet.name);
+                
+                // Use the first image from the chalet's images array
+                const firstImage = chalet.images && chalet.images.length > 0 ? chalet.images[0] : '';
+                
+                chaletCard.innerHTML = `
+                    <div class="chalet-image">
+                        <img src="${firstImage}" alt="${chalet.name}">
+                    </div>
+                    <div class="chalet-details">
+                        <h3 class="chalet-name">${chalet.name}</h3>
+                        <p class="chalet-location">${chalet.location}</p>
+                        <div class="chalet-features">
+                            <span class="feature">🛏️ ${chalet.bedrooms} BR</span>
+                            <span class="feature">🚿 ${chalet.bathrooms} Bath</span>
+                            <span class="feature">👥 ${chalet.guests} Guests</span>
+                        </div>
+                        <p class="price">${chalet.price.toLocaleString()} EGP/night</p>
+                        <a href="#" class="view-details">View Details</a>
+                        <a href="${whatsappLink}" class="whatsapp-button" target="_blank">
+                            Book WhatsApp
+                        </a>
+                    </div>
+                `;
+                
+                chaletContainer.appendChild(chaletCard);
+                
+                // Add click event to "View Details" button
+                const viewDetailsBtn = chaletCard.querySelector('.view-details');
+                viewDetailsBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal(chalet.id);
+                });
+            });
+        }
+
+        // Function to filter chalets
+        function filterChalets() {
+            const locationValue = locationFilter.value;
+            const priceValue = parseInt(priceFilter.value);
+            const bedroomsValue = parseInt(bedroomsFilter.value);
+            
+            let filteredChalets = [...chalets];
+            
+            // Filter by location
+            if (locationValue !== 'all') {
+                filteredChalets = filteredChalets.filter(chalet => 
+                    chalet.locationFilter === locationValue
+                );
+            }
+            
+            // Filter by price
+            if (!isNaN(priceValue)) {
+                filteredChalets = filteredChalets.filter(chalet => 
+                    chalet.price <= priceValue
+                );
+            }
+            
+            // Filter by bedrooms
+            if (!isNaN(bedroomsValue)) {
+                filteredChalets = filteredChalets.filter(chalet => 
+                    chalet.bedrooms >= bedroomsValue
+                );
+            }
+            
+            renderChalets(filteredChalets);
+        }
+
+        // Function to open modal and display chalet details
+        function openModal(chaletId) {
+            const chalet = chalets.find(c => c.id === chaletId);
+            if (!chalet) return;
+            
+            modalChaletName.textContent = chalet.name;
+            modalChaletLocation.textContent = chalet.location;
+            modalBedrooms.textContent = chalet.bedrooms;
+            modalBathrooms.textContent = chalet.bathrooms;
+            modalGuests.textContent = chalet.guests;
+            modalPrice.textContent = chalet.price.toLocaleString();
+            
+            // Setup WhatsApp link in modal
+            const whatsappLink = createWhatsAppLink(chalet.name);
+            modalWhatsappLink.href = whatsappLink;
+            
+            // Clear existing features
+            modalFeatures.innerHTML = '';
+            
+            // Add features
+            chalet.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                modalFeatures.appendChild(li);
+            });
+            
+            // Setup gallery
+            currentChaletImages = chalet.images;
+            currentImageIndex = 0;
+            updateGallery();
+            
+            // Update calendar
+            currentChaletId = chaletId;
+            updateCalendarDisplay();
+            
+            // Show modal
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close modal
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Function to update gallery
+        function updateGallery() {
+            if (currentChaletImages.length === 0) return;
+            
+            // Update main image
+            modalMainImage.src = currentChaletImages[currentImageIndex];
+            modalMainImage.classList.add('image-fade');
+            setTimeout(() => {
+                modalMainImage.classList.remove('image-fade');
+            }, 400);
+            
+            // Update counter
+            currentImageEl.textContent = currentImageIndex + 1;
+            totalImagesEl.textContent = currentChaletImages.length;
+            
+            // Clear thumbnails
+            thumbnailsContainer.innerHTML = '';
+            
+            // Create thumbnails
+            currentChaletImages.forEach((img, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.src = img;
+                thumbnail.alt = `Thumbnail ${index + 1}`;
+                thumbnail.className = 'thumbnail';
+                if (index === currentImageIndex) {
+                    thumbnail.classList.add('active');
+                }
+                
+                thumbnail.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    updateGallery();
+                });
+                
+                thumbnailsContainer.appendChild(thumbnail);
+            });
+        }
+
+        // Function to navigate to previous image
+        function prevImage() {
+            if (currentChaletImages.length <= 1) return;
+            
+            currentImageIndex = (currentImageIndex - 1 + currentChaletImages.length) % currentChaletImages.length;
+            updateGallery();
+        }
+
+        // Function to navigate to next image
+        function nextImage() {
+            if (currentChaletImages.length <= 1) return;
+            
+            currentImageIndex = (currentImageIndex + 1) % currentChaletImages.length;
+            updateGallery();
+        }
+
+        // Event Listeners
+        applyFiltersBtn.addEventListener('click', filterChalets);
+        closeModalBtn.addEventListener('click', closeModal);
+        prevBtn.addEventListener('click', prevImage);
+        nextBtn.addEventListener('click', nextImage);
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Handle keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (modal.style.display === 'block') {
+                if (e.key === 'Escape') {
+                    closeModal();
+                } else if (e.key === 'ArrowLeft') {
+                    prevImage();
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
+                }
+            }
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChaletsFromStorage(); // Load saved chalets first
+            initializeBookingData();
+            initializeAdminPanel();
+            renderChalets(chalets);
+        });
+
+        // Initialize booking data for all chalets
+        function initializeBookingData() {
+            const startDate = new Date(BOOKING_START_YEAR, BOOKING_START_MONTH, 1);
+            const endDate = new Date(BOOKING_END_YEAR, BOOKING_END_MONTH + 1, 0);
+
+            // Try to load saved bookings from localStorage
+            const savedBookings = localStorage.getItem('chaletBookings');
+            if (savedBookings) {
+                const parsedBookings = JSON.parse(savedBookings);
+                chalets.forEach(chalet => {
+                    if (parsedBookings[chalet.id]) {
+                        chalet.bookings = parsedBookings[chalet.id];
+                    } else {
+                        // Initialize empty bookings object if none exists
+                        chalet.bookings = {};
+                        let currentDate = new Date(startDate);
+                        while (currentDate <= endDate) {
+                            const dateStr = currentDate.toISOString().split('T')[0];
+                            chalet.bookings[dateStr] = "available";
+                            currentDate.setDate(currentDate.getDate() + 1);
+                        }
+                    }
+                });
+            } else {
+                // Initialize all chalets with default available dates
+                chalets.forEach(chalet => {
+                    chalet.bookings = {};
+                    let currentDate = new Date(startDate);
+                    while (currentDate <= endDate) {
+                        const dateStr = currentDate.toISOString().split('T')[0];
+                        chalet.bookings[dateStr] = "available";
+                        currentDate.setDate(currentDate.getDate() + 1);
+                    }
+                });
+            }
+
+            // Save initial booking data
+            saveBookingsToStorage();
+        }
+
+        // Function to save bookings to localStorage
+        function saveBookingsToStorage() {
+            const bookingsToSave = {};
+            chalets.forEach(chalet => {
+                bookingsToSave[chalet.id] = chalet.bookings;
+            });
+            localStorage.setItem('chaletBookings', JSON.stringify(bookingsToSave));
+        }
+
+        // Function to generate calendar HTML
+        function generateCalendar(year, month, chaletId) {
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startingDay = firstDay.getDay();
+            const totalDays = lastDay.getDate();
+            const today = new Date();
+
+            let calendarHTML = '';
+            
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < startingDay; i++) {
+                calendarHTML += '<div class="calendar-day"></div>';
+            }
+
+            // Add days of the month
+            for (let day = 1; day <= totalDays; day++) {
+                const currentDate = new Date(year, month, day);
+                const dateStr = currentDate.toISOString().split('T')[0];
+                const chalet = chalets.find(c => c.id === chaletId);
+                const status = chalet.bookings[dateStr] || "available";
+                const isToday = currentDate.toDateString() === today.toDateString();
+
+                calendarHTML += `
+                    <div class="calendar-day ${status} ${isToday ? 'today' : ''}" 
+                         data-date="${dateStr}">
+                        ${day}
+                    </div>
+                `;
+            }
+
+            return calendarHTML;
+        }
+
+        // Function to update calendar display
+        function updateCalendarDisplay() {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+            document.getElementById('currentMonth').textContent = 
+                `${monthNames[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`;
+            
+            const calendarGrid = document.getElementById('calendarGrid');
+            calendarGrid.innerHTML = generateCalendar(
+                currentMonth.getFullYear(),
+                currentMonth.getMonth(),
+                currentChaletId
+            );
+        }
+
+        // Function to handle admin panel
+        function initializeAdminPanel() {
+            const adminPanel = document.getElementById('adminPanel');
+            const toggleAdmin = document.getElementById('toggleAdmin');
+            const chaletSelect = document.getElementById('adminChaletSelect');
+            const startDateInput = document.getElementById('adminStartDate');
+            const endDateInput = document.getElementById('adminEndDate');
+            const statusSelect = document.getElementById('adminStatusSelect');
+            const updateBtn = document.getElementById('adminUpdateBtn');
+
+            // Populate chalet select
+            chalets.forEach(chalet => {
+                const option = document.createElement('option');
+                option.value = chalet.id;
+                option.textContent = chalet.name;
+                chaletSelect.appendChild(option);
+            });
+
+            // Set date input min and max
+            const startDate = new Date(BOOKING_START_YEAR, BOOKING_START_MONTH, 1);
+            const endDate = new Date(BOOKING_END_YEAR, BOOKING_END_MONTH + 1, 0);
+            startDateInput.min = startDate.toISOString().split('T')[0];
+            startDateInput.max = endDate.toISOString().split('T')[0];
+            endDateInput.min = startDate.toISOString().split('T')[0];
+            endDateInput.max = endDate.toISOString().split('T')[0];
+
+            // Toggle admin panel
+            toggleAdmin.addEventListener('click', () => {
+                adminPanel.style.display = 
+                    adminPanel.style.display === 'none' ? 'block' : 'none';
+            });
+
+            // Update booking status
+            updateBtn.addEventListener('click', () => {
+                const chaletId = parseInt(chaletSelect.value);
+                const startDate = new Date(startDateInput.value);
+                const endDate = new Date(endDateInput.value);
+                const status = statusSelect.value;
+
+                if (chaletId && startDate && endDate && status) {
+                    const chalet = chalets.find(c => c.id === chaletId);
+                    if (chalet) {
+                        // Reset the time part of the dates to avoid timezone issues
+                        startDate.setHours(0, 0, 0, 0);
+                        endDate.setHours(0, 0, 0, 0);
+                        
+                        let currentDate = new Date(startDate);
+                        while (currentDate <= endDate) {
+                            const dateStr = currentDate.toISOString().split('T')[0];
+                            chalet.bookings[dateStr] = status;
+                            currentDate.setDate(currentDate.getDate() + 1);
+                        }
+                        updateCalendarDisplay();
+                        // Save the updated bookings to localStorage
+                        saveBookingsToStorage();
+                    }
+                }
+            });
+        }
+
+        // Modify the openModal function to include calendar
+        const originalOpenModal = openModal;
+        openModal = function(chaletId) {
+            originalOpenModal(chaletId);
+            currentChaletId = chaletId;
+            updateCalendarDisplay();
+        };
+
+        // Update the calendar navigation
+        let currentMonth = new Date(BOOKING_START_YEAR, BOOKING_START_MONTH);
+        let currentChaletId = null;
+        
+        function updateCalendarDisplay() {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+            document.getElementById('currentMonth').textContent = 
+                `${monthNames[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`;
+            
+            if (currentChaletId) {
+                const calendarGrid = document.getElementById('calendarGrid');
+                calendarGrid.innerHTML = generateCalendar(
+                    currentMonth.getFullYear(),
+                    currentMonth.getMonth(),
+                    currentChaletId
+                );
+            }
+        }
+
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentMonth.setMonth(currentMonth.getMonth() - 1);
+            updateCalendarDisplay();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+            updateCalendarDisplay();
+        });
+
+        // Add password protection
+        const ADMIN_USERNAME = "fady";
+        const ADMIN_PASSWORD = "445417";
+        const passwordModal = document.getElementById('passwordModal');
+        const adminUsername = document.getElementById('adminUsername');
+        const adminPassword = document.getElementById('adminPassword');
+        const submitPassword = document.getElementById('submitPassword');
+        const cancelPassword = document.getElementById('cancelPassword');
+        const passwordError = document.getElementById('passwordError');
+        const adminPanel = document.getElementById('adminPanel');
+        const closeAdminPanel = document.getElementById('closeAdminPanel');
+
+        function showPasswordModal() {
+            passwordModal.style.display = 'flex';
+            adminUsername.value = '';
+            adminPassword.value = '';
+            passwordError.style.display = 'none';
+            adminUsername.focus();
+        }
+
+        function hidePasswordModal() {
+            passwordModal.style.display = 'none';
+            adminPanel.style.display = 'none'; // Ensure admin panel is closed when canceling
+        }
+
+        // Add close button handler
+        closeAdminPanel.addEventListener('click', () => {
+            adminPanel.style.display = 'none';
+        });
+
+        function checkCredentials() {
+            if (adminUsername.value === ADMIN_USERNAME && adminPassword.value === ADMIN_PASSWORD) {
+                window.location.href = 'admin.html';
+            } else {
+                passwordError.style.display = 'block';
+                adminUsername.value = '';
+                adminPassword.value = '';
+                adminUsername.focus();
+            }
+        }
+
+        // Update toggle admin button click handler
+        document.getElementById('toggleAdmin').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (adminPanel.style.display === 'block') {
+                // If panel is open, close it
+                adminPanel.style.display = 'none';
+            } else {
+                // If panel is closed, show password modal
+                showPasswordModal();
+            }
+        });
+
+        submitPassword.addEventListener('click', checkCredentials);
+        cancelPassword.addEventListener('click', hidePasswordModal);
+
+        adminPassword.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkCredentials();
+            }
+        });
+
+        adminUsername.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                adminPassword.focus();
+            }
+        });
+
+        // Admin Panel Management
+        document.getElementById('showBookingManagement').addEventListener('click', () => {
+            document.getElementById('bookingManagement').style.display = 'block';
+            document.getElementById('chaletCreation').style.display = 'none';
+        });
+
+        document.getElementById('showChaletCreation').addEventListener('click', () => {
+            document.getElementById('bookingManagement').style.display = 'none';
+            document.getElementById('chaletCreation').style.display = 'block';
+        });
+
+        // Features Management
+        const featureInput = document.getElementById('featureInput');
+        const featuresList = document.getElementById('featuresList');
+        let features = [];
+
+        featureInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const feature = featureInput.value.trim();
+                if (feature && !features.includes(feature)) {
+                    features.push(feature);
+                    updateFeaturesList();
+                }
+                featureInput.value = '';
+            }
+        });
+
+        function updateFeaturesList() {
+            featuresList.innerHTML = features.map(feature => `
+                <div class="feature-tag">
+                    ${feature}
+                    <button onclick="removeFeature('${feature}')">&times;</button>
+                </div>
+            `).join('');
+        }
+
+        function removeFeature(feature) {
+            features = features.filter(f => f !== feature);
+            updateFeaturesList();
+        }
+
+        // Image Upload Management
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const imageUpload = document.getElementById('imageUpload');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        let uploadedImages = [];
+
+        imageUploadArea.addEventListener('click', () => {
+            imageUpload.click();
+        });
+
+        imageUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imageUploadArea.parentElement.classList.add('dragover');
+        });
+
+        imageUploadArea.addEventListener('dragleave', () => {
+            imageUploadArea.parentElement.classList.remove('dragover');
+        });
+
+        imageUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imageUploadArea.parentElement.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        imageUpload.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imageUrl = e.target.result; // This will be a base64 string
+                        uploadedImages.push({
+                            file: file.name,
+                            url: imageUrl // Store the base64 string
+                        });
+                        updateImagePreviews();
+                    };
+                    reader.readAsDataURL(file); // Read as base64
+                }
+            });
+        }
+
+        function updateImagePreviews() {
+            imagePreviewContainer.innerHTML = uploadedImages.map((image, index) => `
+                <div class="image-preview">
+                    <img src="${image.url}" alt="Preview">
+                    <button class="remove-image" onclick="removeImage(${index})">&times;</button>
+                </div>
+            `).join('');
+        }
+
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            updateImagePreviews();
+        }
+
+        // Form Submission
+        document.getElementById('newChaletForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const newChalet = {
+                id: chalets.length + 1,
+                name: document.getElementById('chaletName').value,
+                location: document.getElementById('chaletLocation').options[document.getElementById('chaletLocation').selectedIndex].text + ", North Coast",
+                locationFilter: document.getElementById('chaletLocation').value,
+                price: parseInt(document.getElementById('chaletPrice').value),
+                bedrooms: parseInt(document.getElementById('chaletBedrooms').value),
+                bathrooms: parseInt(document.getElementById('chaletBathrooms').value),
+                guests: parseInt(document.getElementById('chaletGuests').value),
+                features: [...features],
+                images: uploadedImages.map(img => img.url),
+                bookings: {}
+            };
+
+            chalets.push(newChalet);
+            saveChaletsToStorage(); // Save updated chalets to localStorage
+            initializeBookingData();
+            renderChalets(chalets);
+            
+            // Reset form
+            e.target.reset();
+            features = [];
+            uploadedImages = [];
+            updateFeaturesList();
+            updateImagePreviews();
+            
+            alert('Chalet added successfully!');
+        });
+
+        // Function to handle booking updates from admin panel
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'bookingUpdate') {
+                // Update the chalets with new booking data
+                const updatedBookings = event.data.bookings;
+                chalets.forEach(chalet => {
+                    if (updatedBookings[chalet.id]) {
+                        chalet.bookings = updatedBookings[chalet.id];
+                    }
+                });
+
+                // If a chalet modal is open, update its calendar
+                if (currentChaletId && modal.style.display === 'block') {
+                    updateCalendarDisplay();
+                }
+
+                // Save the updated bookings to localStorage
+                localStorage.setItem('chaletBookings', JSON.stringify(updatedBookings));
+            }
+        });
+    </script>
+</body>
+</html>

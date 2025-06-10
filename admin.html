@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahel Masr - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #1e88e5;
+            --secondary: #0d47a1;
+            --accent: #00acc1;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--gray-100);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Admin Dashboard Styles */
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gray-200);
+            position: relative;
+        }
+
+        .admin-header h1 {
+            color: var(--secondary);
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-header h1 i {
+            color: var(--accent);
+        }
+
+        .back-to-site {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .back-to-site:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Admin Options */
+        .admin-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .admin-option-btn {
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            background: white;
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-option-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .admin-option-btn:hover::before {
+            opacity: 1;
+        }
+
+        .admin-option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .admin-option-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        .admin-option-btn i {
+            font-size: 1.4rem;
+        }
+
+        /* Section Styles */
+        .admin-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .admin-section h2 {
+            color: var(--secondary);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Form Styles */
+        .admin-form {
+            display: grid;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--gray-100);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0,172,193,0.1);
+            outline: none;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto 0;
+            display: block;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Enhanced Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .admin-container {
+                padding: 15px;
+                margin: 5px;
+                border-radius: 15px;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+            }
+
+            .admin-header h1 {
+                font-size: 1.6rem;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .back-to-site {
+                width: 100%;
+                justify-content: center;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            .admin-options {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .admin-option-btn {
+                padding: 15px;
+                font-size: 1rem;
+            }
+
+            .admin-section {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .admin-section h2 {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .form-group label {
+                font-size: 0.9rem;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 12px;
+                font-size: 16px; /* Better for mobile touch */
+                height: 45px; /* Larger touch target */
+            }
+
+            .features-input {
+                gap: 8px;
+            }
+
+            .feature-input {
+                padding: 12px;
+                font-size: 16px;
+                height: 45px;
+            }
+
+            .features-list {
+                padding: 5px;
+            }
+
+            .feature-tag {
+                padding: 8px 15px;
+                font-size: 14px;
+                margin: 3px;
+            }
+
+            .feature-tag button {
+                padding: 5px;
+                font-size: 18px; /* Larger touch target */
+            }
+
+            .image-upload-container {
+                padding: 15px;
+                margin: 10px 0;
+            }
+
+            .image-upload-area {
+                padding: 20px 10px;
+            }
+
+            .image-upload-area i {
+                font-size: 35px;
+            }
+
+            .image-upload-area p {
+                font-size: 14px;
+                margin: 10px 0;
+            }
+
+            .image-preview-container {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 8px;
+            }
+
+            .image-preview .remove-image {
+                width: 28px;
+                height: 28px;
+                font-size: 16px;
+            }
+
+            .submit-btn {
+                padding: 15px;
+                font-size: 16px;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            /* Enhanced Touch Feedback */
+            .admin-option-btn:active,
+            .submit-btn:active,
+            .feature-tag button:active,
+            .image-preview .remove-image:active {
+                transform: scale(0.95);
+            }
+
+            /* Improved Scrolling */
+            .admin-container {
+                -webkit-overflow-scrolling: touch;
+                overflow-y: auto;
+                max-height: 90vh;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 380px) {
+            .admin-container {
+                margin: 0;
+                padding: 12px;
+                border-radius: 12px;
+            }
+
+            .admin-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .admin-option-btn {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            .stat-card {
+                padding: 12px;
+            }
+
+            .stat-info h3 {
+                font-size: 1.3rem;
+            }
+
+            .image-preview-container {
+                grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+                gap: 6px;
+            }
+
+            .feature-tag {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+
+        /* Landscape Mode */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .admin-container {
+                max-height: 85vh;
+                overflow-y: auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .admin-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .image-upload-area {
+                padding: 10px;
+            }
+
+            .image-upload-area i {
+                font-size: 30px;
+            }
+
+            .image-preview-container {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            }
+        }
+
+        /* High-DPI Mobile Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .admin-container {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            .feature-tag,
+            .admin-option-btn,
+            .submit-btn {
+                border-radius: 10px;
+            }
+        }
+
+        /* Features Input Styles */
+        .features-input {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .feature-input {
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--gray-100);
+        }
+
+        .features-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .feature-tag {
+            background: rgba(0, 172, 193, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .feature-tag button {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            padding: 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .feature-tag button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Image Upload Styles */
+        .image-upload-container {
+            border: 2px dashed var(--gray-300);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            background: var(--gray-100);
+        }
+
+        .image-upload-container.dragover {
+            border-color: var(--accent);
+            background: rgba(0, 172, 193, 0.05);
+        }
+
+        .image-upload-area {
+            cursor: pointer;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .image-upload-area i {
+            font-size: 48px;
+            color: var(--accent);
+        }
+
+        .image-upload-area p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .image-preview-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .image-preview {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s;
+        }
+
+        .image-preview:hover img {
+            transform: scale(1.05);
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--danger);
+            font-size: 14px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .remove-image:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Admin Dashboard</h1>
+            <a href="index.html" class="back-to-site">
+                <i class="fas fa-arrow-left"></i>
+                Back to Site
+            </a>
+        </div>
+
+        <div class="admin-options">
+            <button class="admin-option-btn" onclick="showSection('booking-management')">
+                <i class="fas fa-calendar-check"></i>
+                Manage Bookings
+            </button>
+            <button class="admin-option-btn" onclick="showSection('chalet-creation')">
+                <i class="fas fa-plus-circle"></i>
+                Add New Chalet
+            </button>
+        </div>
+
+        <!-- Booking Management Section -->
+        <div id="booking-management" class="admin-section">
+            <h2><i class="fas fa-calendar-alt"></i> Booking Management</h2>
+            <div class="admin-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Select Chalet</label>
+                        <select id="adminChaletSelect">
+                            <option value="">Select Chalet</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="adminStatusSelect">
+                            <option value="available">Available</option>
+                            <option value="booked">Booked</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" id="adminStartDate">
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" id="adminEndDate">
+                    </div>
+                </div>
+                <button class="submit-btn" id="adminUpdateBtn">
+                    <i class="fas fa-save"></i> Update Status
+                </button>
+            </div>
+        </div>
+
+        <!-- Chalet Creation Section -->
+        <div id="chalet-creation" class="admin-section">
+            <h2><i class="fas fa-plus"></i> Add New Chalet</h2>
+            <form id="newChaletForm" class="admin-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Chalet Name</label>
+                        <input type="text" id="chaletName" required placeholder="e.g., C5/4 Chalet">
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <select id="chaletLocation" required>
+                            <option value="amwaj">Amwaj</option>
+                            <option value="marassi">Marassi</option>
+                            <option value="portomarina">Porto Marina</option>
+                            <option value="portogolf">Porto Golf</option>
+                            <option value="marseilia">Marseilia Beach 4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price per Night (EGP)</label>
+                        <input type="number" id="chaletPrice" required min="0" step="500" placeholder="e.g., 7500">
+                    </div>
+                    <div class="form-group">
+                        <label>Max Guests</label>
+                        <input type="number" id="chaletGuests" required min="1" placeholder="e.g., 4">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Bedrooms</label>
+                        <input type="number" id="chaletBedrooms" required min="1" placeholder="e.g., 2">
+                    </div>
+                    <div class="form-group">
+                        <label>Bathrooms</label>
+                        <input type="number" id="chaletBathrooms" required min="1" placeholder="e.g., 2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Features</label>
+                    <div class="features-input">
+                        <input type="text" id="featureInput" placeholder="Add a feature and press Enter" class="feature-input">
+                        <div id="featuresList" class="features-list"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Images</label>
+                    <div class="image-upload-container" id="imageUploadContainer">
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop images here or click to select</p>
+                            <input type="file" id="imageUpload" multiple accept="image/*" style="display: none;">
+                        </div>
+                        <div class="image-preview-container" id="imagePreviewContainer"></div>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-plus"></i> Add Chalet
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Chalets data
+        const chalets = [
+            {
+                id: 1,
+                name: "C5/4 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            },
+            {
+                id: 2,
+                name: "X703 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            },
+            {
+                id: 3,
+                name: "E28/3 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            },
+            {
+                id: 4,
+                name: "R17/1 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            },
+            {
+                id: 5,
+                name: "E18/4 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            },
+            {
+                id: 6,
+                name: "E15/1 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            },
+            {
+                id: 7,
+                name: "U422 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            },
+            {
+                id: 8,
+                name: "R3/7 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            },
+            {
+                id: 9,
+                name: "N58/3 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            },
+            {
+                id: 10,
+                name: "E1/1 Duplex",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            },
+            {
+                id: 11,
+                name: "Y9/1 Villa",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            },
+            {
+                id: 12,
+                name: "C4/1 Chalet",
+                location: "Amwaj, North Coast",
+                locationFilter: "amwaj"
+            }
+        ];
+
+        // Function to populate chalet select dropdown
+        function populateChaletSelect() {
+            const chaletSelect = document.getElementById('adminChaletSelect');
+            chaletSelect.innerHTML = '<option value="">Select Chalet</option>';
+            
+            chalets.forEach(chalet => {
+                const option = document.createElement('option');
+                option.value = chalet.id;
+                option.textContent = `${chalet.name} - ${chalet.location}`;
+                chaletSelect.appendChild(option);
+            });
+        }
+
+        // Function to save bookings to localStorage and sync with main window
+        function saveBookingsToStorage() {
+            const bookingsToSave = {};
+            chalets.forEach(chalet => {
+                bookingsToSave[chalet.id] = chalet.bookings;
+            });
+            localStorage.setItem('chaletBookings', JSON.stringify(bookingsToSave));
+
+            // Send message to main window to update bookings
+            if (window.opener && !window.opener.closed) {
+                window.opener.postMessage({
+                    type: 'bookingUpdate',
+                    bookings: bookingsToSave
+                }, '*');
+            }
+        }
+
+        // Call this function when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            populateChaletSelect();
+            showSection('booking-management');
+
+            // Load existing bookings from localStorage
+            const savedBookings = localStorage.getItem('chaletBookings');
+            if (savedBookings) {
+                const parsedBookings = JSON.parse(savedBookings);
+                chalets.forEach(chalet => {
+                    if (parsedBookings[chalet.id]) {
+                        chalet.bookings = parsedBookings[chalet.id];
+                    }
+                });
+            }
+        });
+
+        // Function to show/hide sections
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.admin-option-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            selectedSection.style.display = 'block';
+            
+            // Add active class to clicked button
+            const activeButton = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
+            activeButton.classList.add('active');
+        }
+
+        // Function to update booking status
+        function updateBookingStatus(chaletId, startDate, endDate, status) {
+            const chalet = chalets.find(c => c.id === chaletId);
+            if (!chalet) return;
+
+            // Reset the time part of the dates to avoid timezone issues
+            startDate.setHours(0, 0, 0, 0);
+            endDate.setHours(0, 0, 0, 0);
+            
+            let currentDate = new Date(startDate);
+            while (currentDate <= endDate) {
+                const dateStr = currentDate.toISOString().split('T')[0];
+                chalet.bookings[dateStr] = status;
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            // Save and sync the changes
+            saveBookingsToStorage();
+            return true;
+        }
+
+        // Event listener for the update button
+        document.getElementById('adminUpdateBtn').addEventListener('click', () => {
+            const chaletId = parseInt(document.getElementById('adminChaletSelect').value);
+            const startDate = new Date(document.getElementById('adminStartDate').value);
+            const endDate = new Date(document.getElementById('adminEndDate').value);
+            const status = document.getElementById('adminStatusSelect').value;
+
+            if (!chaletId || !startDate || !endDate || !status) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            if (updateBookingStatus(chaletId, startDate, endDate, status)) {
+                alert('Booking status updated successfully!');
+            } else {
+                alert('Error updating booking status. Please try again.');
+            }
+        });
+
+        // Features Management
+        const featureInput = document.getElementById('featureInput');
+        const featuresList = document.getElementById('featuresList');
+        let features = [];
+
+        featureInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const feature = featureInput.value.trim();
+                
+                // Validate feature input
+                if (!feature) {
+                    alert('Please enter a feature');
+                    return;
+                }
+
+                if (feature.length < 3) {
+                    alert('Feature must be at least 3 characters long');
+                    return;
+                }
+
+                if (feature.length > 50) {
+                    alert('Feature must be less than 50 characters long');
+                    return;
+                }
+
+                if (features.includes(feature)) {
+                    alert('This feature has already been added');
+                    return;
+                }
+
+                if (features.length >= 10) {
+                    alert('Maximum 10 features allowed');
+                    return;
+                }
+
+                features.push(feature);
+                updateFeaturesList();
+                featureInput.value = '';
+            }
+        });
+
+        function updateFeaturesList() {
+            featuresList.innerHTML = features.map(feature => `
+                <div class="feature-tag">
+                    ${feature}
+                    <button onclick="removeFeature('${feature}')">&times;</button>
+                </div>
+            `).join('');
+        }
+
+        function removeFeature(feature) {
+            features = features.filter(f => f !== feature);
+            updateFeaturesList();
+        }
+
+        // Image Upload Management
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const imageUpload = document.getElementById('imageUpload');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const imageUploadContainer = document.getElementById('imageUploadContainer');
+        let uploadedImages = [];
+
+        imageUploadArea.addEventListener('click', () => {
+            imageUpload.click();
+        });
+
+        // Prevent default drag behaviors with error handling
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            try {
+                imageUploadContainer.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            } catch (error) {
+                console.error(`Error setting up ${eventName} event listener:`, error);
+            }
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Handle drag and drop
+        ['dragenter', 'dragover'].forEach(eventName => {
+            imageUploadContainer.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            imageUploadContainer.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            imageUploadContainer.classList.add('dragover');
+        }
+
+        function unhighlight(e) {
+            imageUploadContainer.classList.remove('dragover');
+        }
+
+        imageUploadContainer.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            try {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                
+                if (!files || files.length === 0) {
+                    alert('No files were dropped. Please try again.');
+                    return;
+                }
+                
+                handleFiles(files);
+            } catch (error) {
+                console.error('Error handling dropped files:', error);
+                alert('Error handling dropped files. Please try uploading them directly.');
+            } finally {
+                unhighlight(e);
+            }
+        }
+
+        imageUpload.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            const maxFileSize = 5 * 1024 * 1024; // 5MB
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            
+            Array.from(files).forEach(file => {
+                if (!allowedTypes.includes(file.type)) {
+                    alert(`File ${file.name} is not a supported image type. Please use JPG, PNG, or GIF.`);
+                    return;
+                }
+                
+                if (file.size > maxFileSize) {
+                    alert(`File ${file.name} is too large. Maximum file size is 5MB.`);
+                    return;
+                }
+                
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imageUrl = e.target.result;
+                        uploadedImages.push({
+                            file: file,
+                            url: imageUrl
+                        });
+                        updateImagePreviews();
+                    };
+                    reader.onerror = () => {
+                        alert(`Error reading file ${file.name}. Please try again.`);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function updateImagePreviews() {
+            imagePreviewContainer.innerHTML = uploadedImages.map((image, index) => `
+                <div class="image-preview">
+                    <img src="${image.url}" alt="Preview">
+                    <button class="remove-image" onclick="removeImage(${index})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            updateImagePreviews();
+        }
+
+        // Modify the form submission to include features and images
+        document.getElementById('newChaletForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Validate required fields
+            const chaletName = document.getElementById('chaletName').value.trim();
+            const chaletPrice = parseInt(document.getElementById('chaletPrice').value);
+            const chaletGuests = parseInt(document.getElementById('chaletGuests').value);
+            const chaletBedrooms = parseInt(document.getElementById('chaletBedrooms').value);
+            const chaletBathrooms = parseInt(document.getElementById('chaletBathrooms').value);
+
+            if (!chaletName) {
+                alert('Please enter a chalet name');
+                return;
+            }
+
+            if (isNaN(chaletPrice) || chaletPrice <= 0) {
+                alert('Please enter a valid price');
+                return;
+            }
+
+            if (isNaN(chaletGuests) || chaletGuests <= 0) {
+                alert('Please enter a valid number of guests');
+                return;
+            }
+
+            if (isNaN(chaletBedrooms) || chaletBedrooms <= 0) {
+                alert('Please enter a valid number of bedrooms');
+                return;
+            }
+
+            if (isNaN(chaletBathrooms) || chaletBathrooms <= 0) {
+                alert('Please enter a valid number of bathrooms');
+                return;
+            }
+
+            if (uploadedImages.length === 0) {
+                alert('Please upload at least one image');
+                return;
+            }
+
+            const newChalet = {
+                id: Date.now(), // Use timestamp as temporary ID
+                name: chaletName,
+                location: document.getElementById('chaletLocation').options[document.getElementById('chaletLocation').selectedIndex].text + ", North Coast",
+                locationFilter: document.getElementById('chaletLocation').value,
+                price: chaletPrice,
+                bedrooms: chaletBedrooms,
+                bathrooms: chaletBathrooms,
+                guests: chaletGuests,
+                features: [...features],
+                images: uploadedImages.map(img => img.url)
+            };
+
+            try {
+                // Here you would typically send this data to your backend
+                console.log('New Chalet Data:', newChalet);
+                
+                // Reset form
+                e.target.reset();
+                features = [];
+                uploadedImages = [];
+                updateFeaturesList();
+                updateImagePreviews();
+                
+                alert('Chalet added successfully!');
+            } catch (error) {
+                console.error('Error adding chalet:', error);
+                alert('Error adding chalet. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html> 
